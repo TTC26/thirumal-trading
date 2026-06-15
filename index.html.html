@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thirumal Trading Company – Industrial Machinery Specialists</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --green:      #16a34a;
+      --green-dark: #14532d;
+      --green-mid:  #15803d;
+      --green-lite: #bbf7d0;
+      --green-pale: #f0fdf4;
+      --yellow:     #facc15;
+      --yellow-dark:#ca8a04;
+      --yellow-lite: #fef9c3;
+      --white:      #ffffff;
+      --dark:       #1a1a1a;
+      --gray:       #6b7280;
+      --border:     #e5e7eb;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; color: var(--dark); background: var(--white); }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 999;
+      background: var(--white);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5%; height: 68px;
+      border-bottom: 3px solid var(--green);
+      box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+    }
+    .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .logo-icon {
+      width: 44px; height: 44px; border-radius: 10px;
+      background: var(--green);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; font-weight: 900; color: white;
+    }
+    .logo-text .company { font-size: 15px; font-weight: 800; color: var(--green-dark); }
+    .logo-text .tagline { font-size: 10px; color: var(--green); letter-spacing: 1.5px; text-transform: uppercase; }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a { color: var(--gray); text-decoration: none; font-size: 14px; font-weight: 600; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--green); }
+    .nav-cta {
+      background: var(--yellow) !important;
+      color: var(--green-dark) !important;
+      padding: 9px 22px; border-radius: 7px; font-weight: 800 !important;
+      box-shadow: 0 3px 10px rgba(202,138,4,0.25);
+    }
+    .nav-cta:hover { background: #fbbf24 !important; transform: translateY(-1px); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      background: var(--white);
+      display: flex; align-items: center;
+      padding: 100px 5% 70px;
+      position: relative; overflow: hidden;
+    }
+    .hero-bg-circle1 {
+      position: absolute; top: -120px; right: -120px;
+      width: 500px; height: 500px; border-radius: 50%;
+      background: var(--green-pale); z-index: 0;
+    }
+    .hero-bg-circle2 {
+      position: absolute; bottom: -80px; right: 180px;
+      width: 280px; height: 280px; border-radius: 50%;
+      background: var(--yellow-lite); z-index: 0;
+    }
+    .hero-bg-stripe {
+      position: absolute; top: 0; right: 0; bottom: 0;
+      width: 42%;
+      background: linear-gradient(160deg, var(--green-pale) 0%, #dcfce7 100%);
+      clip-path: polygon(12% 0, 100% 0, 100% 100%, 0 100%);
+      z-index: 0;
+    }
+
+    .hero-content { position: relative; z-index: 1; max-width: 640px; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--yellow-lite); border: 1.5px solid var(--yellow);
+      color: var(--yellow-dark); font-size: 12px; font-weight: 700;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      padding: 7px 16px; border-radius: 30px; margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-size: clamp(34px, 5vw, 58px);
+      font-weight: 900; color: var(--dark); line-height: 1.12; margin-bottom: 20px;
+    }
+    .hero h1 .g { color: var(--green); }
+    .hero h1 .y {
+      background: linear-gradient(90deg, var(--yellow-dark), var(--yellow));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .hero p { font-size: 17px; color: var(--gray); line-height: 1.8; margin-bottom: 36px; max-width: 540px; }
+    .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--green); color: white;
+      padding: 14px 32px; border-radius: 9px;
+      font-size: 15px; font-weight: 700; text-decoration: none;
+      transition: all 0.25s; box-shadow: 0 4px 18px rgba(22,163,74,0.35);
+    }
+    .btn-primary:hover { background: var(--green-mid); transform: translateY(-3px); box-shadow: 0 8px 28px rgba(22,163,74,0.45); }
+    .btn-yellow {
+      background: var(--yellow); color: var(--green-dark);
+      padding: 14px 32px; border-radius: 9px;
+      font-size: 15px; font-weight: 800; text-decoration: none;
+      transition: all 0.25s; box-shadow: 0 4px 18px rgba(202,138,4,0.25);
+    }
+    .btn-yellow:hover { background: #fbbf24; transform: translateY(-3px); box-shadow: 0 8px 28px rgba(202,138,4,0.35); }
+
+    .hero-stats {
+      display: flex; gap: 40px; margin-top: 52px; flex-wrap: wrap;
+      padding-top: 36px; border-top: 2px solid var(--border);
+    }
+    .stat-num { font-size: 36px; font-weight: 900; color: var(--green); }
+    .stat-label { font-size: 13px; color: var(--gray); margin-top: 2px; }
+
+    /* ── SECTION SHARED ── */
+    section { padding: 88px 5%; }
+    .section-label {
+      display: inline-block; font-size: 12px; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase;
+      background: var(--yellow); color: var(--green-dark);
+      padding: 4px 12px; border-radius: 4px; margin-bottom: 14px;
+    }
+    .section-title { font-size: clamp(26px, 3.5vw, 40px); font-weight: 900; color: var(--dark); line-height: 1.2; margin-bottom: 14px; }
+    .section-sub { font-size: 16px; color: var(--gray); max-width: 580px; line-height: 1.75; }
+
+    /* ── SERVICES ── */
+    #services { background: var(--green-pale); }
+    .services-header { text-align: center; margin-bottom: 52px; }
+    .services-header .section-sub { margin: 0 auto; }
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 22px; }
+    .service-card {
+      background: var(--white); border-radius: 16px; padding: 34px 26px;
+      border: 2px solid var(--green-lite);
+      transition: all 0.28s; position: relative; overflow: hidden;
+    }
+    .service-card::after {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 4px;
+      background: linear-gradient(90deg, var(--green), var(--yellow));
+      transform: scaleX(0); transform-origin: left; transition: transform 0.3s;
+    }
+    .service-card:hover { transform: translateY(-7px); box-shadow: 0 16px 44px rgba(22,163,74,0.13); border-color: var(--green); }
+    .service-card:hover::after { transform: scaleX(1); }
+    .service-icon {
+      width: 58px; height: 58px; border-radius: 14px;
+      background: linear-gradient(135deg, var(--yellow-lite), #fef08a);
+      border: 1.5px solid var(--yellow);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 26px; margin-bottom: 20px;
+    }
+    .service-card h3 { font-size: 18px; font-weight: 800; color: var(--green-dark); margin-bottom: 10px; }
+    .service-card p { font-size: 14px; color: var(--gray); line-height: 1.75; }
+
+    /* ── PRODUCTS ── */
+    #products { background: var(--white); }
+    .products-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 52px; align-items: start; margin-top: 48px; }
+    .product-item {
+      display: flex; gap: 14px; align-items: flex-start;
+      padding: 20px; border-radius: 12px; margin-bottom: 14px;
+      background: var(--white); border: 2px solid var(--border);
+      transition: all 0.22s;
+    }
+    .product-item:hover { border-color: var(--green); background: var(--green-pale); transform: translateX(5px); }
+    .product-icon { font-size: 28px; flex-shrink: 0; }
+    .product-item h4 { font-size: 15px; font-weight: 800; color: var(--green-dark); margin-bottom: 4px; }
+    .product-item p { font-size: 13px; color: var(--gray); line-height: 1.65; }
+
+    .products-visual {
+      background: var(--green-dark);
+      border-radius: 20px; padding: 42px 34px; color: white;
+      position: sticky; top: 88px;
+      border: 3px solid var(--green);
+    }
+    .pv-badge {
+      display: inline-block; background: var(--yellow); color: var(--green-dark);
+      font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;
+      padding: 5px 14px; border-radius: 4px; margin-bottom: 18px;
+    }
+    .products-visual h3 { font-size: 22px; font-weight: 900; margin-bottom: 6px; }
+    .products-visual .sub { color: #86efac; font-size: 14px; margin-bottom: 28px; line-height: 1.6; }
+    .spec-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .spec-list li { display: flex; align-items: center; gap: 12px; font-size: 14px; color: #bbf7d0; }
+    .spec-check {
+      width: 22px; height: 22px; border-radius: 50%; flex-shrink: 0;
+      background: var(--yellow); color: var(--green-dark);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 900;
+    }
+
+    /* ── WHY US ── */
+    #why { background: var(--green); }
+    #why .section-title { color: white; }
+    #why .section-sub { color: #bbf7d0; }
+    #why .section-label { background: var(--yellow); color: var(--green-dark); }
+    .why-header { margin-bottom: 48px; }
+    .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+    .why-card {
+      background: var(--white); border-radius: 14px; padding: 30px 24px;
+      transition: all 0.28s; border: 2px solid transparent;
+    }
+    .why-card:hover { transform: translateY(-6px); border-color: var(--yellow); box-shadow: 0 12px 36px rgba(0,0,0,0.12); }
+    .why-num { font-size: 40px; font-weight: 900; color: var(--yellow); margin-bottom: 12px; line-height: 1; }
+    .why-card h4 { font-size: 17px; font-weight: 800; color: var(--green-dark); margin-bottom: 8px; }
+    .why-card p { font-size: 14px; color: var(--gray); line-height: 1.75; }
+
+    /* ── PROCESS ── */
+    #process { background: var(--yellow-lite); }
+    .process-header { text-align: center; margin-bottom: 56px; }
+    .process-steps { display: flex; gap: 0; position: relative; }
+    .process-steps::before {
+      content: '';
+      position: absolute; top: 31px; left: 8%; right: 8%; height: 3px;
+      background: linear-gradient(90deg, var(--green), var(--yellow));
+      z-index: 0; border-radius: 2px;
+    }
+    .process-step { flex: 1; text-align: center; position: relative; z-index: 1; padding: 0 12px; }
+    .step-circle {
+      width: 62px; height: 62px; border-radius: 50%;
+      font-size: 22px; font-weight: 900;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 20px; border: 4px solid var(--white);
+    }
+    .process-step:nth-child(1) .step-circle { background: var(--green-dark); color: white; box-shadow: 0 4px 18px rgba(20,83,45,0.3); }
+    .process-step:nth-child(2) .step-circle { background: var(--green); color: white; box-shadow: 0 4px 18px rgba(22,163,74,0.35); }
+    .process-step:nth-child(3) .step-circle { background: var(--yellow-dark); color: white; box-shadow: 0 4px 18px rgba(202,138,4,0.35); }
+    .process-step:nth-child(4) .step-circle { background: var(--yellow); color: var(--green-dark); box-shadow: 0 4px 18px rgba(202,138,4,0.3); }
+    .process-step h4 { font-size: 15px; font-weight: 800; color: var(--green-dark); margin-bottom: 8px; }
+    .process-step p { font-size: 13px; color: var(--gray); line-height: 1.65; }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--white); }
+    .contact-layout { display: grid; grid-template-columns: 1fr 1.2fr; gap: 56px; margin-top: 48px; }
+    .contact-info h3 { font-size: 22px; font-weight: 800; color: var(--green-dark); margin-bottom: 26px; }
+    .contact-detail { display: flex; gap: 16px; align-items: flex-start; margin-bottom: 20px; }
+    .contact-detail-icon {
+      width: 46px; height: 46px; border-radius: 10px; flex-shrink: 0;
+      background: var(--green-pale); border: 1.5px solid var(--green-lite);
+      display: flex; align-items: center; justify-content: center; font-size: 20px;
+    }
+    .contact-detail h5 { font-size: 11px; color: var(--gray); margin-bottom: 3px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; }
+    .contact-detail p { font-size: 15px; color: var(--dark); font-weight: 700; }
+    .contact-detail a { color: var(--dark); text-decoration: none; }
+    .contact-detail a:hover { color: var(--green); }
+
+    .contact-form {
+      background: var(--green-pale);
+      border-radius: 18px; padding: 40px 36px;
+      border: 2px solid var(--green-lite);
+    }
+    .contact-form h3 { font-size: 20px; font-weight: 800; color: var(--green-dark); margin-bottom: 26px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .form-group { margin-bottom: 16px; }
+    .form-group label { display: block; font-size: 13px; font-weight: 700; color: var(--green-dark); margin-bottom: 5px; }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%; padding: 11px 14px;
+      border: 2px solid var(--green-lite); border-radius: 8px;
+      font-size: 14px; color: var(--dark); background: white;
+      transition: border-color 0.2s; outline: none; font-family: inherit;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus { border-color: var(--green); box-shadow: 0 0 0 3px rgba(22,163,74,0.1); }
+    .form-group textarea { resize: vertical; min-height: 110px; }
+    .btn-submit {
+      width: 100%; background: var(--green); color: white;
+      border: none; padding: 14px; border-radius: 9px;
+      font-size: 16px; font-weight: 800; cursor: pointer;
+      transition: all 0.25s; font-family: inherit;
+      box-shadow: 0 4px 18px rgba(22,163,74,0.35);
+    }
+    .btn-submit:hover { background: var(--green-mid); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(22,163,74,0.45); }
+
+    /* ── WHATSAPP FLOAT ── */
+    .wa-float {
+      position: fixed; bottom: 28px; right: 28px; z-index: 9999;
+      width: 60px; height: 60px; border-radius: 50%;
+      background: #25d366;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 6px 24px rgba(37,211,102,0.5);
+      text-decoration: none; transition: all 0.25s;
+      animation: wa-pulse 2.5s infinite;
+    }
+    .wa-float:hover { background: #1ebe5d; transform: scale(1.1); box-shadow: 0 10px 32px rgba(37,211,102,0.65); }
+    .wa-float svg { width: 32px; height: 32px; fill: white; }
+    .wa-tooltip {
+      position: absolute; right: 70px; top: 50%; transform: translateY(-50%);
+      background: var(--green-dark); color: white;
+      font-size: 13px; font-weight: 700; white-space: nowrap;
+      padding: 7px 14px; border-radius: 8px;
+      opacity: 0; pointer-events: none; transition: opacity 0.2s;
+    }
+    .wa-tooltip::after {
+      content: '';
+      position: absolute; right: -6px; top: 50%; transform: translateY(-50%);
+      border: 6px solid transparent; border-right: none;
+      border-left-color: var(--green-dark);
+    }
+    .wa-float:hover .wa-tooltip { opacity: 1; }
+    @keyframes wa-pulse {
+      0%,100% { box-shadow: 0 6px 24px rgba(37,211,102,0.5); }
+      50%      { box-shadow: 0 6px 32px rgba(37,211,102,0.8), 0 0 0 10px rgba(37,211,102,0.1); }
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--green-dark);
+      padding: 50px 5% 26px;
+    }
+    .footer-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 38px; flex-wrap: wrap; gap: 28px; }
+    .footer-brand .company { font-size: 20px; font-weight: 900; color: white; margin-bottom: 8px; }
+    .footer-brand .y-line {
+      display: inline-block; height: 3px; width: 48px;
+      background: var(--yellow); border-radius: 2px; margin-bottom: 12px;
+    }
+    .footer-brand p { font-size: 13px; color: #4ade80; max-width: 290px; line-height: 1.75; }
+    .footer-links h5 { font-size: 12px; font-weight: 700; color: var(--yellow); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 14px; }
+    .footer-links ul { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+    .footer-links a { font-size: 13px; color: #4ade80; text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--yellow); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 22px; text-align: center; font-size: 13px; color: #166534;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hero-bg-stripe { display: none; }
+      .hero { padding: 100px 4% 60px; }
+      .hero-stats { gap: 24px; }
+      .products-layout, .contact-layout { grid-template-columns: 1fr; }
+      .process-steps { flex-direction: column; gap: 24px; }
+      .process-steps::before { display: none; }
+      .form-row { grid-template-columns: 1fr; }
+      .products-visual { position: static; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="logo" href="#">
+    <div class="logo-icon">T</div>
+    <div class="logo-text">
+      <span class="company">Thirumal Trading Co.</span>
+      <span class="tagline">Industrial Machinery Specialists</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#products">Products</a></li>
+    <li><a href="#why">Why Us</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#contact" class="nav-cta">Get a Quote</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-stripe"></div>
+  <div class="hero-bg-circle1"></div>
+  <div class="hero-bg-circle2"></div>
+  <div class="hero-content">
+    <div class="hero-badge">⚙️ Trusted Industrial Machinery Partner</div>
+    <h1>Powering Industry with<br><span class="g">Precision</span> <span class="y">Machinery</span><br>Solutions</h1>
+    <p>Thirumal Trading Company delivers end-to-end industrial machinery services — from supply and installation to testing and commissioning. Specialists in PVC extrusion lines for wires, cables, pipes, and industrial production systems.</p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-primary">Get a Free Quote →</a>
+      <a href="#services" class="btn-yellow">Explore Services</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">15+</div>
+        <div class="stat-label">Years of Experience</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">Pan-India</div>
+        <div class="stat-label">Industrial Projects</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Commissioning Success</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="services-header">
+    <div class="section-label">What We Do</div>
+    <h2 class="section-title">Complete Machinery Lifecycle Services</h2>
+    <p class="section-sub">From procurement to post-installation support — we handle every stage of your industrial machinery needs.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">🏭</div>
+      <h3>Machinery Supply</h3>
+      <p>Sourcing and supplying high-quality industrial machinery from trusted manufacturers — PVC extrusion lines, wire & cable equipment, pipe machinery and more.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🔧</div>
+      <h3>Installation</h3>
+      <p>Professional installation by our expert team ensuring proper alignment, connection, and compliance with industry standards at your site.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🔬</div>
+      <h3>Testing</h3>
+      <p>Comprehensive performance and safety testing of all installed equipment — verifying operational efficiency before full-scale production begins.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🚀</div>
+      <h3>Commissioning</h3>
+      <p>Full commissioning to bring your machinery to peak operational status, including operator training and smooth production handover.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section id="products">
+  <div class="section-label">Our Specialisation</div>
+  <h2 class="section-title">PVC Extrusion Lines & Industrial Machinery</h2>
+  <p class="section-sub">Specialists in complete supply, installation, and commissioning of PVC extrusion systems across multiple industries.</p>
+  <div class="products-layout">
+    <div class="product-list">
+      <div class="product-item">
+        <div class="product-icon">🔌</div>
+        <div>
+          <h4>Wire & Cable Extrusion Lines</h4>
+          <p>Single and multi-layer PVC extrusion lines for insulation and jacketing of electrical wires and cables. High-speed, precision-engineered systems.</p>
+        </div>
+      </div>
+      <div class="product-item">
+        <div class="product-icon">🪈</div>
+        <div>
+          <h4>Pipe Extrusion Lines</h4>
+          <p>PVC/CPVC rigid and flexible pipe manufacturing lines for plumbing, conduit, irrigation, and drainage applications.</p>
+        </div>
+      </div>
+      <div class="product-item">
+        <div class="product-icon">⚙️</div>
+        <div>
+          <h4>Other Industrial Machinery</h4>
+          <p>Ancillary equipment including mixers, granulators, cooling systems, pullers, and cutters for complete production line setups.</p>
+        </div>
+      </div>
+      <div class="product-item">
+        <div class="product-icon">🛠️</div>
+        <div>
+          <h4>Spare Parts & Consumables</h4>
+          <p>Genuine spare parts, screws, barrels, dies, and consumables to keep your production lines running without downtime.</p>
+        </div>
+      </div>
+    </div>
+    <div class="products-visual">
+      <div class="pv-badge">✦ Why PVC Extrusion</div>
+      <h3>Industry-Leading Technology</h3>
+      <p class="sub">Reliable, efficient, and fully customisable production systems for every scale</p>
+      <ul class="spec-list">
+        <li><span class="spec-check">✓</span> High-output production with consistent quality</li>
+        <li><span class="spec-check">✓</span> Energy-efficient motor & heating systems</li>
+        <li><span class="spec-check">✓</span> Fully automated PLC/HMI control panels</li>
+        <li><span class="spec-check">✓</span> International standards compliance (ISO, BIS)</li>
+        <li><span class="spec-check">✓</span> Customisable die designs for any product profile</li>
+        <li><span class="spec-check">✓</span> Low maintenance with long operational life</li>
+        <li><span class="spec-check">✓</span> Turnkey project execution from day one</li>
+        <li><span class="spec-check">✓</span> Complete after-sales support & service</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section id="why">
+  <div class="why-header">
+    <div class="section-label">Our Edge</div>
+    <h2 class="section-title">Why Choose Thirumal Trading?</h2>
+    <p class="section-sub">With 15+ years in the industry, we go beyond just selling machinery — we become your long-term industrial partner.</p>
+  </div>
+  <div class="why-grid">
+    <div class="why-card">
+      <div class="why-num">01</div>
+      <h4>15+ Years of Expertise</h4>
+      <p>Over a decade and a half of hands-on experience in industrial machinery supply and commissioning — we've seen and solved it all.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-num">02</div>
+      <h4>End-to-End Service</h4>
+      <p>Supply, installation, testing, commissioning, and operator training — all under one roof. One partner, zero gaps.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-num">03</div>
+      <h4>On-Time Delivery</h4>
+      <p>Production delays cost money. Our project management ensures machinery is delivered and commissioned on schedule — every time.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-num">04</div>
+      <h4>After-Sales Support</h4>
+      <p>We don't disappear after commissioning. Ongoing technical support, spare parts, and guidance to keep you running.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="process-header">
+    <div class="section-label">How It Works</div>
+    <h2 class="section-title">Our Simple 4-Step Process</h2>
+    <p class="section-sub">From your first enquiry to full production — here's how we work with you.</p>
+  </div>
+  <div class="process-steps">
+    <div class="process-step">
+      <div class="step-circle">1</div>
+      <h4>Enquiry & Consultation</h4>
+      <p>Share your requirements. We assess production needs, site conditions, and budget.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-circle">2</div>
+      <h4>Proposal & Supply</h4>
+      <p>Detailed quotation and procurement from trusted manufacturers with quality checks.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-circle">3</div>
+      <h4>Installation & Testing</h4>
+      <p>Our engineers install, run performance tests, and validate all parameters at your site.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-circle">4</div>
+      <h4>Commissioning & Handover</h4>
+      <p>We commission the line, train operators, and hand over full documentation and support.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">Reach Us</div>
+  <h2 class="section-title">Get in Touch</h2>
+  <p class="section-sub">Have a project in mind? Send us your requirements and we'll get back to you with a free consultation.</p>
+  <div class="contact-layout">
+    <div class="contact-info">
+      <h3>Contact Details</h3>
+      <div class="contact-detail">
+        <div class="contact-detail-icon">🏢</div>
+        <div><h5>Company</h5><p>Thirumal Trading Company</p></div>
+      </div>
+      <div class="contact-detail">
+        <div class="contact-detail-icon">📍</div>
+        <div><h5>Location</h5><p>Perambalur, Tamil Nadu, India – 621108</p></div>
+      </div>
+      <div class="contact-detail">
+        <div class="contact-detail-icon">📞</div>
+        <div><h5>Phone</h5><p><a href="tel:+919385782937">+91 93857 82937</a></p></div>
+      </div>
+      <div class="contact-detail">
+        <div class="contact-detail-icon">✉️</div>
+        <div><h5>Email</h5><p><a href="mailto:info.thirumaltrading@gmail.com">info.thirumaltrading@gmail.com</a></p></div>
+      </div>
+      <div class="contact-detail">
+        <div class="contact-detail-icon">🕒</div>
+        <div><h5>Working Hours</h5><p>Mon – Sat: 9:00 AM – 6:00 PM</p></div>
+      </div>
+      <div class="contact-detail">
+        <div class="contact-detail-icon">💬</div>
+        <div>
+          <h5>WhatsApp</h5>
+          <a href="https://wa.me/919385782937?text=Hello%20Thirumal%20Trading%20Company%2C%20I%20would%20like%20to%20enquire%20about%20your%20industrial%20machinery%20services."
+             target="_blank"
+             style="display:inline-flex;align-items:center;gap:8px;margin-top:4px;background:#25d366;color:white;font-size:14px;font-weight:700;padding:9px 18px;border-radius:8px;text-decoration:none;transition:all 0.2s;"
+             onmouseover="this.style.background='#1ebe5d';this.style.transform='translateY(-2px)'"
+             onmouseout="this.style.background='#25d366';this.style.transform='translateY(0)'">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Chat on WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="contact-form">
+      <h3>Send an Enquiry</h3>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Your Name *</label>
+          <input type="text" placeholder="Full name" />
+        </div>
+        <div class="form-group">
+          <label>Company Name</label>
+          <input type="text" placeholder="Your company" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Phone Number *</label>
+          <input type="tel" placeholder="+91 XXXXX XXXXX" />
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" placeholder="you@company.com" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Type of Inquiry</label>
+        <select>
+          <option>PVC Wire & Cable Extrusion Line</option>
+          <option>PVC Pipe Extrusion Line</option>
+          <option>Other Industrial Machinery</option>
+          <option>Spare Parts & Consumables</option>
+          <option>Installation / Commissioning Service</option>
+          <option>General Enquiry</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Message / Requirements</label>
+        <textarea placeholder="Describe your machinery requirements, production capacity, or any questions..."></textarea>
+      </div>
+      <button class="btn-submit">Send Enquiry →</button>
+    </div>
+  </div>
+</section>
+
+<!-- WHATSAPP FLOAT BUTTON -->
+<a class="wa-float" href="https://wa.me/919385782937?text=Hello%20Thirumal%20Trading%20Company%2C%20I%20would%20like%20to%20enquire%20about%20your%20industrial%20machinery%20services." target="_blank">
+  <div class="wa-tooltip">Chat with us!</div>
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+</a>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="company">Thirumal Trading Company</div>
+      <div class="y-line"></div>
+      <p>Your trusted partner for industrial machinery supply, installation, testing & commissioning. 15+ years of excellence from Perambalur, Tamil Nadu.</p>
+    </div>
+    <div class="footer-links">
+      <h5>Services</h5>
+      <ul>
+        <li><a href="#services">Machinery Supply</a></li>
+        <li><a href="#services">Installation</a></li>
+        <li><a href="#services">Testing</a></li>
+        <li><a href="#services">Commissioning</a></li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h5>Products</h5>
+      <ul>
+        <li><a href="#products">Wire & Cable Lines</a></li>
+        <li><a href="#products">Pipe Extrusion Lines</a></li>
+        <li><a href="#products">Industrial Machinery</a></li>
+        <li><a href="#products">Spare Parts</a></li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h5>Contact</h5>
+      <ul>
+        <li><a href="tel:+919385782937">+91 93857 82937</a></li>
+        <li><a href="mailto:info.thirumaltrading@gmail.com">info.thirumaltrading@gmail.com</a></li>
+        <li><a href="#contact">Perambalur, TN – 621108</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © 2025 Thirumal Trading Company. All rights reserved. | Industrial Machinery Supply & Commissioning | Perambalur, Tamil Nadu
+  </div>
+</footer>
+
+</body>
+</html>
